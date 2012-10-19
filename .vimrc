@@ -27,6 +27,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete'
 
+let g:neocomplcache_enable_cursor_hold_i = 1
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
