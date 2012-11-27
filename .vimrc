@@ -9,30 +9,75 @@ filetype off                   "required!
 set rtp+=~/.vim/bundle/vundle/ "Where are the bundles located
 call vundle#rc()               "vundler setup
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                             "
+" => Plugins                                                                  "
+"                                                                             "
+"Bundle 'gmarik/vundle'                    "Plugin Manager                    "  
+"Bundle 'vim-scripts/L9'                   "VIMScript Programming Libraries   "
+"Bundle 'fholgado/minibufexpl.vim'         "List your buffers                 "
+"Bundle 'scrooloose/nerdtree'              "File Manager                      "
+"Bundle 'scrooloose/syntastic'             "Static Analysis                   "
+"Bundle 'tsaleh/vim-matchit'               "Auto insert closing character     "
+"Bundle 'wincent/Command-T'                "Fuzzy File Finder                 "
+"Bundle 'altercation/vim-colors-solarized' "Color Scheme                      "
+"Bundle 'vim-scripts/vcscommand.vim'       "Source Control tools              "
+"Bundle 'tpope/vim-fugitive'               "GIT Specific tools                " 
+"Bundle 'nvie/vim-togglemouse'             "Yes I still use the mouse         "     
+"Bundle 'Raimondi/delimitMate'             "Go to the closing character / tag "
+"Bundle 'Lokaltog/vim-powerline.git'       "Better Status Line                "
+"Bundle 'jnwhiteh/vim-golang.git'          "GO Lang support                   " 
+"Bundle 'ervandew/supertab'                "Tab Autocomplete                  " 
+"Bundle 'msanders/snipmate.vim'            "Snippet Expand                    " 
+"Bundle 'JSON.vim'                         "JSON Code highlight               "     
+"Bundle 'lukaszb/vim-web-indent'           "Better js and html auto indent    "
+"                                                                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " My Bundles here:
-Bundle 'gmarik/vundle'
-Bundle 'vim-scripts/L9'                         
-Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-rails'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-endwise'
 Bundle 'sickill/vim-pasta'
 Bundle 'tpope/vim-surround'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
-Bundle 'Raimondi/delimitMate'
 Bundle 'xenoterracide/css.vim'
-Bundle 'tpope/vim-fugitive'                     
+Bundle 'gmarik/vundle'                          
+Bundle 'vim-scripts/L9'                         
+Bundle 'fholgado/minibufexpl.vim'               
+Bundle 'scrooloose/nerdtree'                     
+Bundle 'scrooloose/syntastic'                   
+Bundle 'tsaleh/vim-matchit'                     
+Bundle 'wincent/Command-T'                      
+Bundle 'altercation/vim-colors-solarized'       
 Bundle 'vim-scripts/vcscommand.vim'             
+Bundle 'tpope/vim-fugitive'                     
+Bundle 'nvie/vim-togglemouse'                   
+Bundle 'Raimondi/delimitMate'                   
 Bundle 'Lokaltog/vim-powerline.git'             
-Bundle 'Shougo/neosnippet' 
+Bundle 'jnwhiteh/vim-golang.git'                
+Bundle 'ervandew/supertab'
+Bundle 'msanders/snipmate.vim'
 Bundle 'JSON.vim'
+Bundle 'lukaszb/vim-web-indent'
 
+"""""""""""""""""""""""""""""""
+"                             "
+"      Custom Functions       "
+"                             "    
+"""""""""""""""""""""""""""""""
+
+"Clean trailing whitespace on save
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+
+"Format JSON
+fun! PrettyJSON()
+  :%!python -m simplejson.tool
+  set filetype=json
+endfun
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -59,6 +104,10 @@ set showmatch    "Show matching bracets when text indicator is over them
 set laststatus=2 "always have a status bar
 set showcmd      "show information about the current command
 syntax enable    "Enable syntax hl
+
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -110,7 +159,13 @@ set secure "disable unsafe commands in local .vimrc files
 """""""""""""""""""""""""""""""
 
 set autoindent "auto indent the next line
-set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+"Tabs
+if $WORK
+  set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+else
+  set tabstop=4 softtabstop=2 shiftwidth=4 expandtab
+endif
 
 "Line Wrapping
 set tw=500 "Max text width
@@ -171,6 +226,8 @@ autocmd FileType html set textwidth=0
 autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 
 " => JavaScript
+au FileType javascript setl fen
+au FileType javascript setl nocindent
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 autocmd FileType javascript set sw=2
@@ -190,6 +247,9 @@ autocmd FileType markdown set textwidth=79
 au BufNewFile,BufRead *.json set filetype=json
 :command! PrettyJSON :call PrettyJSON()
 
+" => GO Lang
+set rtp+=$GOROOT/misc/vim
+
 """""""""""""""""""""""""""""""
 "                             "
 "       Plugin Config         "
@@ -207,28 +267,9 @@ let g:syntastic_enable_highlighting = 1
 let g:miniBufExplCloseOnSelect = 0 
 let g:miniBufExplModSelTarget = 1
 
-" => Shougo/neocomplcache-snippets-complete
-imap <C-k> <Plug>(neocomplcache_snippets_expand) 
-smap <C-k> <Plug>(neocomplcache_snippets_expand) 
-" For snippet_complete marker. 
-if has('conceal') 
-  set conceallevel=2 concealcursor=i 
-endif
-
-let g:neocomplcache_snippets_dir=$HOME."/environment/snippets"
-
-" => Shougo/neocomplcache
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_auto_completion_start_length=4
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-"For cursor moving in insert mode
-inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ?
- \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+" => msanders/snipmate.vim
+let g:snippets_dir=$HOME."/environment/snippets"
+let g:snips_trigger_key = '<C-tab>'
 
 " => wincent/Command-T
 let g:CommandTMatchWindowAtTop = 1
