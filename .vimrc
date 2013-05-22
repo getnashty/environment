@@ -1,49 +1,286 @@
-et nocompatible               
-filetype off                   
+"""""""""""""""""""""""""""""""
+"                             "   
+"        Basic Setup          "   
+"                             "    
+"""""""""""""""""""""""""""""""
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set nocompatible               "be iMproved
+filetype off                   "required!
+set rtp+=~/.vim/bundle/vundle/ "Where are the bundles located
+call vundle#rc()               "vundler setup
 
-" let Vundle manage Vundle
-" " required! 
- Bundle 'gmarik/vundle'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                                             "
+" => Plugins                                                                  "
+"                                                                             "
+"Bundle 'gmarik/vundle'                    "Plugin Manager                    "  
+"Bundle 'vim-scripts/L9'                   "VIMScript Programming Libraries   "
+"Bundle 'fholgado/minibufexpl.vim'         "List your buffers                 "
+"Bundle 'scrooloose/nerdtree'              "File Manager                      "
+"Bundle 'scrooloose/syntastic'             "Static Analysis                   "
+"Bundle 'tsaleh/vim-matchit'               "Auto insert closing character     "
+"Bundle 'wincent/Command-T'                "Fuzzy File Finder                 "
+"Bundle 'altercation/vim-colors-solarized' "Color Scheme                      "
+"Bundle 'vim-scripts/vcscommand.vim'       "Source Control tools              "
+"Bundle 'tpope/vim-fugitive'               "GIT Specific tools                " 
+"Bundle 'nvie/vim-togglemouse'             "Yes I still use the mouse         "     
+"Bundle 'Raimondi/delimitMate'             "Go to the closing character / tag "
+"Bundle 'Lokaltog/vim-powerline.git'       "Better Status Line                "
+"Bundle 'jnwhiteh/vim-golang.git'          "GO Lang support                   " 
+"Bundle 'ervandew/supertab'                "Tab Autocomplete                  " 
+"Bundle 'msanders/snipmate.vim'            "Snippet Expand                    " 
+"Bundle 'JSON.vim'                         "JSON Code highlight               "     
+"Bundle 'lukaszb/vim-web-indent'           "Better js and html auto indent    "
+"                                                                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
- " My Bundles here:
- Bundle 'altercation/vim-colors-solarized.git'
- Bundle 'scrooloose/nerdtree'
- Bundle 'scrooloose/syntastic'
+" My Bundles here:
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-endwise'
+Bundle 'sickill/vim-pasta'
+Bundle 'tpope/vim-surround'
+Bundle 'xenoterracide/css.vim'
+Bundle 'gmarik/vundle'                          
+Bundle 'vim-scripts/L9'                         
+Bundle 'fholgado/minibufexpl.vim'               
+Bundle 'scrooloose/nerdtree'                     
+Bundle 'scrooloose/syntastic'                   
+Bundle 'tsaleh/vim-matchit'                     
+Bundle 'wincent/Command-T'                      
+Bundle 'altercation/vim-colors-solarized'       
+Bundle 'vim-scripts/vcscommand.vim'             
+Bundle 'tpope/vim-fugitive'                     
+Bundle 'nvie/vim-togglemouse'                   
+Bundle 'Raimondi/delimitMate'                   
+Bundle 'Lokaltog/vim-powerline.git'             
+Bundle 'jnwhiteh/vim-golang.git'                
+Bundle 'ervandew/supertab'
+Bundle 'msanders/snipmate.vim'
+Bundle 'JSON.vim'
+Bundle 'lukaszb/vim-web-indent'
 
- " Color Scheme stuffs
- set background=dark
- let g:solarized_termtrans=1
- let g:solarized_termcolors=256
- let g:solarized_contrast="high"
- let g:solarized_visibility="high"
- colorscheme solarized
+"""""""""""""""""""""""""""""""
+"                             "
+"      Custom Functions       "
+"                             "    
+"""""""""""""""""""""""""""""""
 
- "Syntastic
- let g:syntastic_enable_signs=1
- let g:syntastic_auto_loc_list=1
+"Clean trailing whitespace on save
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
 
- "Nerd tree
- nnoremap <leader>n :NERDTreeToggle<cr>
+"Format JSON
+fun! PrettyJSON()
+  :%!python -m simplejson.tool
+  set filetype=json
+endfun
 
- "IDE STUFF
- set number
- set cul
- hi CursorLine term=none cterm=none ctermbg=3
+"""""""""""""""""""""""""""""""
+"                             "
+"         Appearance          "
+"                             "     
+"""""""""""""""""""""""""""""""
 
- "Swoop
- "set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+"Color Scheme stuffs
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+colorscheme solarized
 
- "Softtabs, 2 spaces
- set tabstop=2
- set shiftwidth=2
- set expandtab
+set ruler        "Always show current position
+set cul          "highlight current line
+set hlsearch     "highlight search
+set cmdheight=2  "The commandbar height
+set number       "show line numbers
+set nohidden     "dont unload my buffer
+set nolazyredraw "Don't redraw while executing macros 
+set showmatch    "Show matching bracets when text indicator is over them
+set laststatus=2 "always have a status bar
+set showcmd      "show information about the current command
+syntax enable    "Enable syntax hl
 
- " When vimrc is edited, reload it
- autocmd! bufwritepost vimrc source ~/.vimrc
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
- filetype plugin indent on     " required!
+"""""""""""""""""""""""""""""""
+"                             "
+"          MISC VIM           "
+"                             " 
+"""""""""""""""""""""""""""""""
 
+set history=700                             "Sets how many lines of history VIM has to remember
+set ttimeoutlen=50                          "Speed up O etc in the Terminal
+set autoread                                "Set to auto read when a file is changed from the outside
+set bs=2                                    "allow backspace
+set scrolloff=6                             "start scrolling 5 lines before edge of viewport
+set pastetoggle=<f10>                       "Better paste behavior
+autocmd! bufwritepost vimrc source ~/.vimrc "When vimrc is edited, reload it
 
+"Search Options
+set ignorecase "Ignore case when searching
+set incsearch  "Make search act like search in modern browsers
+set magic      "Set magic on, for regular expressions
+
+"Enable filetype plugin
+filetype plugin on
+filetype indent on
+filetype on
+syntax enable
+
+"Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+"Stop beeping at me bro
+set noerrorbells 
+set vb 
+set t_vb="."
+
+"Enable mouse support in xterm 
+set mouse=a
+set ttymouse=xterm2
+
+"Load Project specific .vimrc 
+set exrc   "enable per-directory .vimrc files
+set secure "disable unsafe commands in local .vimrc files
+
+"""""""""""""""""""""""""""""""
+"                             " 
+"     Spacing and Lines       "
+"                             "
+"""""""""""""""""""""""""""""""
+
+set autoindent "auto indent the next line
+
+"Tabs
+if $WORK
+  set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+else
+  set tabstop=4 softtabstop=2 shiftwidth=4 expandtab
+endif
+
+"Line Wrapping
+set tw=500 "Max text width
+set ai     "Auto indent
+set si     "Smart indet
+set wrap   "Wrap lines
+
+"""""""""""""""""""""""""""""""
+"                             "
+"         Leader Key          "
+"                             "  
+"""""""""""""""""""""""""""""""
+
+"close buffer
+nnoremap <leader>q :bw <cr>                    
+"toggle nerdtree 
+nnoremap <leader>n :NERDTreeToggle<cr>        
+"Nice File Diff
+nnoremap <leader>d :VCSVimDiff <cr>           
+"Commit Changes
+nnoremap <leader>c :VCSCommit <cr>             
+"GIT Status
+nnoremap <leader>s :Gstatus <cr>              
+"Delete all buffers
+nnoremap <leader>da :bufdo silent! bdelete<cr> 
+
+"Change Tab Spacing
+nnoremap <leader>2 <esc>:set expandtab tabstop=2 softtabstop=2 shiftwidth=2<cr>
+nnoremap <leader>4 <esc>:set expandtab tabstop=4 softtabstop=4 shiftwidth=4<cr>
+nnoremap <leader>8 <esc>:set expandtab tabstop=8 softtabstop=8 shiftwidth=8<cr>
+
+"""""""""""""""""""""""""""""""
+"                             "
+"      Remap Commands         "
+"                             "  
+"""""""""""""""""""""""""""""""
+
+:command! W w "just write the file!
+
+"""""""""""""""""""""""""""""""
+"                             "
+"          Language           "
+"                             "
+"""""""""""""""""""""""""""""""
+
+" => CSS
+autocmd FileType css set sw=2
+autocmd FileType css set ts=2
+autocmd FileType css set sts=2
+autocmd FileType css set textwidth=79
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+" => HTML
+autocmd FileType html set sw=2
+autocmd FileType html set ts=2
+autocmd FileType html set sts=2
+autocmd FileType html set textwidth=0
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+
+" => JavaScript
+au FileType javascript setl fen
+au FileType javascript setl nocindent
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType javascript autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType javascript set sw=2
+autocmd FileType javascript set ts=2
+autocmd FileType javascript set sts=2
+autocmd FileType javascript set textwidth=79
+
+" => Markdown
+au BufNewFile,BufRead *.md set filetype=markdown
+autocmd FileType markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType markdown set sw=2
+autocmd FileType markdown set ts=2
+autocmd FileType markdown set sts=2
+autocmd FileType markdown set textwidth=79
+
+" => JSON
+au BufNewFile,BufRead *.json set filetype=json
+:command! PrettyJSON :call PrettyJSON()
+
+" => GO Lang
+set rtp+=$GOROOT/misc/vim
+
+"""""""""""""""""""""""""""""""
+"                             "
+"       Plugin Config         "
+"                             "
+"""""""""""""""""""""""""""""""
+
+" => scrooloose/syntastic
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol="✗"
+let g:syntastic_warning_symbol="⚠"
+let g:syntastic_enable_balloons = 1
+let g:syntastic_enable_highlighting = 1 
+
+" => fholgado/minibufexpl.vim
+let g:miniBufExplCloseOnSelect = 0 
+let g:miniBufExplModSelTarget = 1
+
+" => msanders/snipmate.vim
+let g:snippets_dir=$HOME."/environment/snippets"
+let g:snips_trigger_key = '<C-tab>'
+
+" => wincent/Command-T
+let g:CommandTMatchWindowAtTop = 1
+
+"get escape to work in the terminal for closing the command-t window
+if &term =~ "xterm" || &term =~ "screen"
+  let g:CommandTCancelMap     = ['<ESC>', '<C-c>']
+  let g:CommandTSelectNextMap = ['<C-n>', '<C-j>', '<ESC>OB']
+  let g:CommandTSelectPrevMap = ['<C-p>', '<C-k>', '<ESC>OA']
+endif
+
+" => Lokaltog/vim-powerline.git
+let g:Powerline_symbols = 'unicode'
+let g:Powerline_stl_path_style = 'short'
