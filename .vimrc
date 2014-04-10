@@ -58,6 +58,8 @@ Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
 Bundle 'JSON.vim'
 Bundle 'lukaszb/vim-web-indent'
+Bundle 'mattn/zencoding-vim'
+Bundle 'kien/ctrlp.vim'                      
 
 """""""""""""""""""""""""""""""
 "                             "
@@ -161,11 +163,11 @@ set secure "disable unsafe commands in local .vimrc files
 set autoindent "auto indent the next line
 
 "Tabs
-if $WORK
+"if $WORK
   set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-else
-  set tabstop=4 softtabstop=2 shiftwidth=4 expandtab
-endif
+"else
+"  set tabstop=4 softtabstop=2 shiftwidth=4 expandtab
+"endif
 
 "Line Wrapping
 set tw=500 "Max text width
@@ -191,12 +193,14 @@ nnoremap <leader>c :VCSCommit <cr>
 nnoremap <leader>s :Gstatus <cr>              
 "Delete all buffers
 nnoremap <leader>da :bufdo silent! bdelete<cr> 
+"CtrlP window
+nnoremap <leader>t :CtrlP<cr>
 
 "Change Tab Spacing
-nnoremap <leader>2 <esc>:set expandtab tabstop=2 softtabstop=2 shiftwidth=2<cr>
-nnoremap <leader>4 <esc>:set expandtab tabstop=4 softtabstop=4 shiftwidth=4<cr>
-nnoremap <leader>8 <esc>:set expandtab tabstop=8 softtabstop=8 shiftwidth=8<cr>
-
+"nnoremap <leader>2 <esc>:set expandtab tabstop=2 softtabstop=2 shiftwidth=2<cr>
+"nnoremap <leader>4 <esc>:set expandtab tabstop=4 softtabstop=4 shiftwidth=4<cr>
+"nnoremap <leader>8 <esc>:set expandtab tabstop=8 softtabstop=8 shiftwidth=8<cr>
+"
 """""""""""""""""""""""""""""""
 "                             "
 "      Remap Commands         "
@@ -284,3 +288,11 @@ endif
 " => Lokaltog/vim-powerline.git
 let g:Powerline_symbols = 'unicode'
 let g:Powerline_stl_path_style = 'short'
+
+
+" => kien/ctrlp.vim
+let g:ctrlp_cmd = 'CtrlP'
+
+"show window at top of screen
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
