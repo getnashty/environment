@@ -4,10 +4,13 @@
 "                             "    
 """""""""""""""""""""""""""""""
 
-set nocompatible               "be iMproved
-filetype off                   "required!
-set rtp+=~/.vim/bundle/vundle/ "Where are the bundles located
-call vundle#rc()               "vundler setup
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+call pathogen#infect()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                             "
@@ -18,7 +21,6 @@ call vundle#rc()               "vundler setup
 "Bundle 'fholgado/minibufexpl.vim'         "List your buffers                 "
 "Bundle 'scrooloose/nerdtree'              "File Manager                      "
 "Bundle 'scrooloose/syntastic'             "Static Analysis                   "
-"Bundle 'tsaleh/vim-matchit'               "Auto insert closing character     "
 "Bundle 'wincent/Command-T'                "Fuzzy File Finder                 "
 "Bundle 'altercation/vim-colors-solarized' "Color Scheme                      "
 "Bundle 'vim-scripts/vcscommand.vim'       "Source Control tools              "
@@ -45,7 +47,6 @@ Bundle 'vim-scripts/L9'
 Bundle 'fholgado/minibufexpl.vim'               
 Bundle 'scrooloose/nerdtree'                     
 Bundle 'scrooloose/syntastic'                   
-Bundle 'tsaleh/vim-matchit'                     
 Bundle 'wincent/Command-T'                      
 Bundle 'altercation/vim-colors-solarized'       
 Bundle 'vim-scripts/vcscommand.vim'             
@@ -87,7 +88,7 @@ endfun
 """""""""""""""""""""""""""""""
 
 "Color Scheme stuffs
-set background=dark
+set background=light
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="high"
