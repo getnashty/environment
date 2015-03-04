@@ -10,7 +10,7 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-call pathogen#infect()
+execute pathogen#infect()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                             "
@@ -58,7 +58,7 @@ Bundle 'jnwhiteh/vim-golang.git'
 Bundle 'msanders/snipmate.vim'
 Bundle 'JSON.vim'
 Bundle 'lukaszb/vim-web-indent'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'kien/ctrlp.vim'                      
 
 """""""""""""""""""""""""""""""
@@ -88,11 +88,11 @@ endfun
 """""""""""""""""""""""""""""""
 
 "Color Scheme stuffs
-set background=light
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
+set background=dark
+let g:solarized_termtrans=2
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
+"let g:solarized_termcolors=256
 colorscheme solarized
 
 set ruler        "Always show current position
@@ -164,7 +164,7 @@ set autoindent "auto indent the next line
 
 "Tabs
 "if $WORK
-  set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+  set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 "else
 "  set tabstop=4 softtabstop=2 shiftwidth=4 expandtab
 "endif
