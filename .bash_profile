@@ -98,14 +98,9 @@ symbol="💩  "
 export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
 
-
 ### Misc
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # Only show the current directory's name in the tab
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
-
-# init z! (https://github.com/rupa/z)
-. ~/z.sh
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
