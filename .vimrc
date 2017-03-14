@@ -266,6 +266,8 @@ let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol="⚠"
 let g:syntastic_enable_balloons = 1
 let g:syntastic_enable_highlighting = 1 
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 
 " => fholgado/minibufexpl.vim
 let g:miniBufExplCloseOnSelect = 0 
