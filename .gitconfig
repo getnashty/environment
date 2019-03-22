@@ -58,3 +58,6 @@
     unstage = reset HEAD --
     # Show files ignored by git:
     ign = ls-files -o -i --exclude-standard
+[user]
+	name = Elliot Nash
+	email = elliot@venturemedias.com

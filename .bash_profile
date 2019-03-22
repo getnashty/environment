@@ -1,8 +1,17 @@
+export NVM_DIR="$HOME/.nvm"
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+
 ### Aliases
 
 # Open specified files in Sublime Text
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
+
+# Open Neovim
+alias vim='nvim'
 
 # Color LS
 colorflag="-G"
@@ -98,9 +107,33 @@ symbol="💩  "
 export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
 
-### Misc
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 # Only show the current directory's name in the tab
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
+
+# FASTLANE
+export PATH="$HOME/.fastlane/bin:$PATH"
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+# For compilers to find openssl you may need to set:
+LDFLAGS="-L/usr/local/opt/openssl/lib"
+CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+# For pkg-config to find openssl you may need to set:
+PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+
+# For compilers to find readline you may need to set:
+LDFLAGS="${LDFLAGS} -L/usr/local/opt/readline/lib"
+CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/readline/include"
+
+# For pkg-config to find readline you may need to set:
+PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/readline/lib/pkgconfig"
+
+# For compilers to find zlib you may need to set:
+export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+
+# For pkg-config to find zlib you may need to set:
+export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
+
+# For python
+eval "$(pyenv init -)"
