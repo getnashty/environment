@@ -27,7 +27,6 @@ Plugin 'scrooloose/nerdtree'				" DIRECTORY NAV
 Plugin 'scrooloose/nerdcommenter'			" COMMENTS
 Plugin 'vim-syntastic/syntastic'			" SYNTAX HIGHLIGHT
 " Plugin 'w0rp/ale'					        " SYNTAX HIGHLIGHT2
-Plugin 'valloric/youcompleteme'				" AUTOCOMPLETE
 Plugin 'pangloss/vim-javascript'			" JS HIGHLIGHTING
 Plugin 'mxw/vim-jsx' 					    " JSX HIGHLIGHTING
 Plugin 'raimondi/delimitmate' 				" AUTO-CLOSE PAIRS
